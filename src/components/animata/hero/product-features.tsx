@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { HTMLMotionProps, motion, useSpring, useTransform } from "framer-motion";
 import Balancer from "react-wrap-balancer";
 import { cn } from "../../../lib/utils";
-import logo from '../../../assets/Logo Kankot.png';
+import logo from '../../../assets/Logo_Kankot.png';
 import TextFlip from '../text/TextFlip';
 import type { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 

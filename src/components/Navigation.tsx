@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import type { NavItem } from '../types'
-import Logo from '../assets/Logo Kankot.png'
+import Logo from '../assets/Logo_Kankot.png'
 
 interface NavigationProps {
   sections: NavItem[]

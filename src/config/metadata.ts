@@ -38,7 +38,7 @@ export const siteMetadata = {
     siteName: 'KANKOT',
     images: [
       {
-        url: '/images/og-image-new.jpg', // updated image URL
+        url: '/images/og-image.jpg', // updated image URL
         width: 1200,
         height: 630,
         alt: 'KANKOT - Global Business Solutions',
