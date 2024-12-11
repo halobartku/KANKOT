@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with gradient -->
+  <rect width="1200" height="630" fill="url(#paint0_linear)"/>
+  
+  <!-- Logo container -->
+  <g transform="translate(100, 100)">
+    <!-- Add your logo text or image here -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white">
+      KANKOT
+    </text>
+  </g>
+  
+  <!-- Main heading -->
+  <text x="100" y="300" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="white">
+    Transform Your Business Future
+  </text>
+  
+  <!-- Subheading -->
+  <text x="100" y="380" font-family="Arial, sans-serif" font-size="32" fill="white" opacity="0.9">
+    Global Business Solutions &amp; Strategic Consulting
+  </text>
+  
+  <!-- Decorative elements -->
+  <path d="M0 0 L1200 630" stroke="url(#paint1_linear)" stroke-width="2" opacity="0.1"/>
+  
+  <!-- Gradients definitions -->
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

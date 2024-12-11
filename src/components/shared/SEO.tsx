@@ -28,27 +28,37 @@ export function SEO({
       <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
       <meta name="language" content={siteMetadata.language} />
 
-      {/* Open Graph */}
-      <meta property="og:type" content={siteMetadata.type} />
-      <meta property="og:site_name" content={siteMetadata.title} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={ogImageUrl} />
-      <meta property="og:url" content={canonical} />
-      <meta property="og:locale" content={siteMetadata.locale} />
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content={siteMetadata.openGraph.type} />
+      <meta property="og:site_name" content={siteMetadata.openGraph.siteName} />
+      <meta property="og:locale" content={siteMetadata.openGraph.locale} />
+      <meta property="og:url" content={siteMetadata.openGraph.url} />
+      <meta property="og:title" content={siteMetadata.openGraph.title} />
+      <meta property="og:description" content={siteMetadata.openGraph.description} />
+      <meta property="og:image" content={`${siteMetadata.siteUrl}${ogImageUrl}`} />
+      <meta property="og:image:width" content={String(siteMetadata.openGraph.images[0].width)} />
+      <meta property="og:image:height" content={String(siteMetadata.openGraph.images[0].height)} />
+      <meta property="og:image:type" content={siteMetadata.openGraph.images[0].type} />
+      <meta property="og:image:alt" content={siteMetadata.openGraph.images[0].alt} />
+      {siteMetadata.facebook.appId && (
+        <meta property="fb:app_id" content={siteMetadata.facebook.appId} />
+      )}
 
       {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImageUrl} />
+      <meta name="twitter:card" content={siteMetadata.twitter.card} />
+      <meta name="twitter:site" content={siteMetadata.twitter.site} />
+      <meta name="twitter:creator" content={siteMetadata.twitter.creator} />
+      <meta name="twitter:title" content={siteMetadata.openGraph.title} />
+      <meta name="twitter:description" content={siteMetadata.openGraph.description} />
+      <meta name="twitter:image" content={`${siteMetadata.siteUrl}${ogImageUrl}`} />
+      <meta name="twitter:image:alt" content={siteMetadata.openGraph.images[0].alt} />
 
       {/* Additional metadata */}
       <meta name="geo.region" content="PL" />
       <meta name="geo.placename" content="Elbląg" />
       <meta name="author" content={siteMetadata.company.name} />
       
-      {/* Structured Data / JSON-LD */}
+      {/* JSON-LD structured data */}
       <script type="application/ld+json">
         {JSON.stringify({
           '@context': 'https://schema.org',
@@ -57,6 +67,7 @@ export function SEO({
           description: siteMetadata.description,
           url: siteMetadata.siteUrl,
           logo: `${siteMetadata.siteUrl}/logo.png`,
+          image: `${siteMetadata.siteUrl}${ogImageUrl}`,
           address: {
             '@type': 'PostalAddress',
             streetAddress: 'Aleja Grunwaldzka 2',

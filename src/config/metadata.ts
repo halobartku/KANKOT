@@ -30,15 +30,28 @@ export const siteMetadata = {
     }
   },
   openGraph: {
-    title: 'KANKOT - Transforming Business Through Innovation',
-    description: 'Partner with KANKOT for strategic business solutions, digital transformation, and sustainable growth strategies.',
+    title: 'KANKOT - Transform Your Business Future',
+    description: 'Global business solutions for digital transformation, strategic growth, and sustainable innovation. Partner with KANKOT to shape your business future.',
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://kankot.com',
+    siteName: 'KANKOT',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/images/og-image-new.jpg', // updated image URL
         width: 1200,
         height: 630,
-        alt: 'KANKOT Global Business Solutions'
+        alt: 'KANKOT - Global Business Solutions',
+        type: 'image/jpeg'
       }
     ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@kankot',
+    creator: '@kankot'
+  },
+  facebook: {
+    appId: '' // Add your Facebook App ID if you have one
   }
 }
