@@ -44,7 +44,7 @@ export default function TextFlip() {
 
   return (
     <div className="flex flex-col items-center text-center gap-4 text-4xl font-bold lg:text-5xl mb-16">
-      <h1 className="bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent whitespace-nowrap">
+      <h1 className="bg-gradient-to-r from-emerald-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent whitespace-nowrap px-4 sm:px-0">
         Business Solutions for
       </h1>
       <div ref={tallestRef} className="relative h-16 flex flex-col overflow-hidden">
