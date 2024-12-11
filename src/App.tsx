@@ -35,9 +35,14 @@ const navigationSections: NavItem[] = [
 function MainContent() {
   const [currentSection, setCurrentSection] = useState('home')
   const sectionsRef = useRef<(HTMLElement | null)[]>([])
-  const [showCookieConsent, setShowCookieConsent] = useState(true)
+  const [showCookieConsent, setShowCookieConsent] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isScrolling, setIsScrolling] = useState(false)
+
+  useEffect(() => {
+    const consent = localStorage.getItem('cookieConsent')
+    setShowCookieConsent(!consent)
+  }, [])
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {

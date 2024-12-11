@@ -354,15 +354,23 @@ const Analytics = () => {
         {/* Country Selection and Last Updated */}
         <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 mb-4">
           <div className="flex items-stretch sm:items-center gap-2 w-full sm:w-auto">
-            <div className="flex-grow sm:flex-grow-0">
+            <div className="flex-grow sm:flex-grow-0 relative">
               <select
                 value={selectedCountry}
                 onChange={(e) => setSelectedCountry(e.target.value)}
-                className="w-full h-full min-h-[38px] px-3 py-1.5 rounded-lg bg-white/80 border border-gray-200 text-gray-800 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-colors appearance-none"
-                style={{ WebkitAppearance: 'menulist-button' }}
+                className="w-full h-full min-h-[44px] px-4 py-2 rounded-lg bg-white/80 border border-gray-200 text-gray-800 text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-colors cursor-pointer appearance-none mobile:text-lg"
+                style={{
+                  WebkitAppearance: 'none',
+                  MozAppearance: 'none',
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 0.75rem center',
+                  backgroundSize: '1.25em 1.25em',
+                  paddingRight: '2.5rem'
+                }}
               >
                 {countries.map((country) => (
-                  <option key={country.code} value={country.code}>
+                  <option key={country.code} value={country.code} className="py-2">
                     {country.name}
                   </option>
                 ))}
@@ -370,9 +378,9 @@ const Analytics = () => {
             </div>
             <button
               onClick={handleRefresh}
-              className="p-2 rounded-lg bg-white/80 border border-gray-200 text-gray-600 hover:text-emerald-600 transition-colors flex-shrink-0"
+              className="p-2 rounded-lg bg-white/80 border border-gray-200 text-gray-600 hover:text-emerald-600 transition-colors flex-shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              <RefreshCw size={20} />
+              <RefreshCw size={24} />
             </button>
           </div>
           <div className="text-sm text-gray-600 text-center sm:text-right">
