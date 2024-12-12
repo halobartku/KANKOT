@@ -38,6 +38,13 @@ function MainContent() {
   const [showCookieConsent, setShowCookieConsent] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isScrolling, setIsScrolling] = useState(false)
+  const scrollAccumulator = useRef(0)
+  const lastScrollTime = useRef(Date.now())
+  const lastDelta = useRef(0)
+  const SCROLL_THRESHOLD = 150 // Increased threshold
+  const SCROLL_COOLDOWN = 300 // Increased cooldown
+  const ACCUMULATOR_RESET_DELAY = 200 // Time before resetting accumulator
+  const lastAccumulatorReset = useRef(Date.now())
 
   useEffect(() => {
     const consent = localStorage.getItem('cookieConsent')
@@ -47,29 +54,84 @@ function MainContent() {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (window.innerWidth < 1024) return
+
+      // Allow normal scrolling behavior for select elements and their children
+      if (e.target instanceof Element) {
+        const targetElement = e.target as Element
+        if (
+          targetElement.tagName === 'SELECT' ||
+          targetElement.closest('select') ||
+          targetElement.closest('.dropdown-content')
+        ) {
+          return
+        }
+      }
       
       e.preventDefault()
       
       if (isScrolling || !containerRef.current) return
+
+      const now = Date.now()
       
+      // Reset accumulator if enough time has passed
+      if (now - lastAccumulatorReset.current > ACCUMULATOR_RESET_DELAY) {
+        scrollAccumulator.current = 0
+        lastAccumulatorReset.current = now
+      }
+
+      // Check cooldown
+      if (now - lastScrollTime.current < SCROLL_COOLDOWN) {
+        return
+      }
+
+      // Normalize delta based on deltaMode with reduced sensitivity
+      let normalizedDelta = e.deltaY
+      if (e.deltaMode === 1) { // DOM_DELTA_LINE
+        normalizedDelta *= 5 // Further reduced for better control
+      } else if (e.deltaMode === 2) { // DOM_DELTA_PAGE
+        normalizedDelta *= window.innerHeight / 4 // Reduced page multiplier
+      }
+
+      // Detect rapid direction changes
+      if (Math.sign(normalizedDelta) !== Math.sign(lastDelta.current)) {
+        scrollAccumulator.current = 0 // Reset on direction change
+      }
+      lastDelta.current = normalizedDelta
+
+      // Apply aggressive dampening for touchpad
+      if (Math.abs(normalizedDelta) < 50) { // Likely a touchpad
+        normalizedDelta *= 0.3 // More aggressive dampening
+      }
+
+      // Accumulate scroll delta
+      scrollAccumulator.current += normalizedDelta
+
+      // Only proceed if accumulated scroll passes threshold
+      if (Math.abs(scrollAccumulator.current) < SCROLL_THRESHOLD) {
+        return
+      }
+
       setIsScrolling(true)
-      
-      const delta = e.deltaY
+      lastScrollTime.current = now
       
       const currentIndex = navigationSections.findIndex(section => section.id === currentSection)
       let nextSection = currentSection
       
-      if (delta < 0 && currentIndex > 0) {
+      if (scrollAccumulator.current < 0 && currentIndex > 0) {
         nextSection = navigationSections[currentIndex - 1].id
-      } else if (delta > 0 && currentIndex < navigationSections.length - 1) {
+      } else if (scrollAccumulator.current > 0 && currentIndex < navigationSections.length - 1) {
         nextSection = navigationSections[currentIndex + 1].id
       }
+      
+      // Reset accumulator after section change
+      scrollAccumulator.current = 0
+      lastAccumulatorReset.current = now
       
       handleNavigate(nextSection)
       
       setTimeout(() => {
         setIsScrolling(false)
-      }, 800)
+      }, 500)
     }
 
     const container = containerRef.current
