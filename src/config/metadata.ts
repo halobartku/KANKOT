@@ -1,63 +1,57 @@
 export const siteMetadata = {
-  title: 'Kancelaria Podatkowa Jolanta Stankiewicz | Profesjonalne Usługi Księgowe i Podatkowe',
-  description: 'Kompleksowa obsługa podatkowa i księgowa dla firm oraz osób prywatnych. Specjalizujemy się w rozliczeniach CIT, PIT, VAT, kadrach i płacach oraz obsłudze ZUS.',
-  siteUrl: 'https://podatkistankiewicz.pl',
-  language: 'pl',
-  locale: 'pl_PL',
+  title: 'KANKOT - Global Business Solutions & Strategic Consulting',
+  description: 'KANKOT delivers innovative business solutions, strategic consulting, and technological expertise to drive sustainable growth and digital transformation.',
+  siteUrl: 'https://kankot.com',
+  language: 'en',
+  locale: 'en_US',
   type: 'website',
   keywords: [
-    'kancelaria podatkowa',
-    'usługi księgowe',
-    'księgowość',
-    'rozliczenia podatkowe',
-    'CIT',
-    'PIT',
-    'VAT',
-    'kadry i płace',
-    'ZUS',
-    'obsługa księgowa firm',
-    'rozliczenia roczne',
-    'księgowość online',
-    'biuro rachunkowe',
-    'podatki firmowe',
-    'podatki osobiste',
-    'działalność rachunkowo-księgowa',
-    'Elbląg księgowość'
+    'business consulting',
+    'strategic planning',
+    'digital transformation',
+    'innovation',
+    'global business solutions',
+    'technology consulting',
+    'business strategy',
+    'enterprise solutions',
+    'KANKOT',
+    'business growth',
+    'international business',
+    'Poland business consulting'
   ],
   company: {
-    name: 'KANCELARIA PODATKOWA JOLANTA STANKIEWICZ',
-    address: 'ul. KOWALSKA 8-9/D, 82-300 Elbląg',
-    type: 'indywidualna działalność gospodarcza',
-    owner: 'JOLANTA STANKIEWICZ',
+    name: 'KANKOT sp. z o. o.',
+    address: 'Aleja Grunwaldzka 2, 82-300 Elbląg, Poland',
+    email: 'office@kankot.com',
     registration: {
-      nip: '5781419439',
-      regon: '387861759',
-      pkd: '69.20.Z - Działalność rachunkowo-księgowa'
+      krs: '0001045980',
+      nip: '5783162660',
+      regon: '525794226'
     }
   },
   openGraph: {
-    title: 'Kancelaria Podatkowa Jolanta Stankiewicz | Profesjonalne Usługi Księgowe i Podatkowe',
-    description: 'Kompleksowa obsługa podatkowa i księgowa dla firm oraz osób prywatnych. Specjalizujemy się w rozliczeniach CIT, PIT, VAT, kadrach i płacach oraz obsłudze ZUS.',
+    title: 'KANKOT - Transform Your Business Future',
+    description: 'Global business solutions for digital transformation, strategic growth, and sustainable innovation. Partner with KANKOT to shape your business future.',
     type: 'website',
-    locale: 'pl_PL',
-    url: 'https://podatkistankiewicz.pl',
-    siteName: 'Kancelaria Podatkowa Jolanta Stankiewicz',
+    locale: 'en_US',
+    url: 'https://kankot.com',
+    siteName: 'KANKOT',
     images: [
       {
-        url: '/src/assets/logo.png',
+        url: 'https://kankot.com/Logo_Kankot.png',
         width: 1200,
         height: 630,
-        alt: 'Kancelaria Podatkowa Jolanta Stankiewicz',
+        alt: 'KANKOT - Global Business Solutions',
         type: 'image/png'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@KancelariaStankiewicz',
-    creator: '@KancelariaStankiewicz'
+    site: '@kankot',
+    creator: '@kankot'
   },
   facebook: {
-    appId: '' // Add Facebook App ID if available
+    appId: '' // Add your Facebook App ID if you have one
   }
 }

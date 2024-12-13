@@ -1,48 +1,127 @@
+@import './styles/animations.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+/* Modern Business Gradient Backgrounds */
+.bg-primary-gradient {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #172554 100%);
 }
 
-@media (min-width: 1024px) {
-  html {
-    scroll-snap-type: x mandatory;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  html::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  html {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
+.bg-hero-gradient {
+  background: linear-gradient(160deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  position: relative;
 }
 
-/* Ensure sections take full width and height on desktop */
-@media (min-width: 1024px) {
+.bg-hero-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(226, 232, 240, 0.2)
+  );
+  pointer-events: none;
+}
+
+.bg-card-gradient {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(226, 232, 240, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 100vh;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 64, 175, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 100vh;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(30, 64, 175, 0.5);
+}
+
+/* Glass Morphism */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.3);
+}
+
+/* Mobile styles */
+@media (max-width: 1023px) {
+  html, body {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  main {
+    height: auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
   section {
+    min-height: 100vh;
+    width: 100% !important;
+  }
+}
+
+/* Desktop styles - UNTOUCHED */
+@media (min-width: 1024px) {
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .section-container {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    min-width: 100vw;
-    min-height: 100vh;
+    overflow-y: hidden;
+    position: relative;
+    padding-bottom: 1.75rem;
+  }
+
+  main {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden !important;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 }
 
-/* Smooth scrolling for mobile */
-@media (max-width: 1023px) {
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+/* Footer styles */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 1.75rem;
 }
 
 /* Animation classes */
@@ -77,21 +156,48 @@ html {
   animation-delay: 6s;
 }
 
-/* Ensure proper stacking context */
-.z-1 {
-  z-index: 1;
-}
-
-.z-2 {
-  z-index: 2;
-}
-
-/* Hide scrollbar utility */
+/* Hide scrollbar but allow scrolling */
 .hide-scrollbar {
-  -ms-overflow-style: none;
   scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bg-grid-slate-100 {
+    background-image: linear-gradient(to right, rgb(241 245 249 / 0.1) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgb(241 245 249 / 0.1) 1px, transparent 1px);
+  }
+
+  .drop-shadow-glow {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  }
+
+  .animate-gradient {
+    animation: gradient 8s linear infinite;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
