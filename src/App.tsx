@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { 
-  Briefcase, 
-  LineChart, 
-  Home, 
-  GraduationCap,
-  Mail,
-  Target
+  Calculator,
+  FileText,
+  Home,
+  Users,
+  Phone
 } from 'lucide-react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { SEO } from './components/shared/SEO'
 import { Navigation } from './components/Navigation'
@@ -16,20 +15,18 @@ import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
 import { PrivacyPolicy } from './components/PrivacyPolicy'
 import ProductFeatures from './components/animata/hero/product-features'
-import { Services } from './components/Services'
-import { Expertise } from './components/Expertise'
 import { Solutions } from './components/Solutions'
+import { Expertise } from './components/Expertise'
 import Analytics from './components/Analytics'
 import type { NavItem } from './types'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 
 const navigationSections: NavItem[] = [
-  { id: 'home', title: 'Home', label: 'Home', href: '#home', icon: Home },
-  { id: 'services', title: 'Our Services', label: 'Our Services', href: '#services', icon: Briefcase },
-  { id: 'expertise', title: 'Expertise', label: 'Expertise', href: '#expertise', icon: GraduationCap },
-  { id: 'solutions', title: 'Solutions', label: 'Solutions', href: '#solutions', icon: Target },
-  { id: 'analytics', title: 'Analytics', label: 'Analytics', href: '#analytics', icon: LineChart },
-  { id: 'contact', title: 'Contact', label: 'Contact', href: '#contact', icon: Mail },
+  { id: 'home', title: 'Strona Główna', label: 'Strona Główna', href: '#home', icon: Home },
+  { id: 'services', title: 'Rozwiązania', label: 'Rozwiązania', href: '#services', icon: Calculator },
+  { id: 'expertise', title: 'Usługi', label: 'Usługi', href: '#expertise', icon: FileText },
+  { id: 'team', title: 'Zespół', label: 'Zespół', href: '#team', icon: Users },
+  { id: 'contact', title: 'Kontakt', label: 'Kontakt', href: '#contact', icon: Phone },
 ]
 
 function MainContent() {
@@ -41,20 +38,34 @@ function MainContent() {
   const scrollAccumulator = useRef(0)
   const lastScrollTime = useRef(Date.now())
   const lastDelta = useRef(0)
-  const SCROLL_THRESHOLD = 150 // Increased threshold
-  const SCROLL_COOLDOWN = 300 // Increased cooldown
-  const ACCUMULATOR_RESET_DELAY = 200 // Time before resetting accumulator
+  const SCROLL_THRESHOLD = 100 // Increased threshold for touchpad
+  const SCROLL_COOLDOWN = 500 // Increased cooldown to prevent double jumps
+  const ACCUMULATOR_RESET_DELAY = 300 // Increased reset delay
   const lastAccumulatorReset = useRef(Date.now())
+  const touchpadMultiplier = 0.2 // Reduced touchpad sensitivity
 
   useEffect(() => {
     const consent = localStorage.getItem('cookieConsent')
     setShowCookieConsent(!consent)
   }, [])
 
+  const handleNavigate = (id: string) => {
+    const section = sectionsRef.current[navigationSections.findIndex(section => section.id === id)]
+    if (section) {
+      const isDesktop = window.innerWidth >= 1024
+      if (isDesktop) {
+        section.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+      } else {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+      setCurrentSection(id)
+    }
+  }
+
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (window.innerWidth < 1024) return
-
+      
       // Allow normal scrolling behavior for select elements and their children
       if (e.target instanceof Element) {
         const targetElement = e.target as Element
@@ -84,12 +95,17 @@ function MainContent() {
         return
       }
 
-      // Normalize delta based on deltaMode with reduced sensitivity
+      // Detect touchpad by checking delta magnitude
+      const isTouchpad = Math.abs(e.deltaY) < 50
+      
+      // Apply different multipliers based on input type
       let normalizedDelta = e.deltaY
-      if (e.deltaMode === 1) { // DOM_DELTA_LINE
-        normalizedDelta *= 5 // Further reduced for better control
+      if (isTouchpad) {
+        normalizedDelta *= touchpadMultiplier // Reduced sensitivity for touchpad
+      } else if (e.deltaMode === 1) { // DOM_DELTA_LINE
+        normalizedDelta *= 8
       } else if (e.deltaMode === 2) { // DOM_DELTA_PAGE
-        normalizedDelta *= window.innerHeight / 4 // Reduced page multiplier
+        normalizedDelta *= window.innerHeight
       }
 
       // Detect rapid direction changes
@@ -97,11 +113,6 @@ function MainContent() {
         scrollAccumulator.current = 0 // Reset on direction change
       }
       lastDelta.current = normalizedDelta
-
-      // Apply aggressive dampening for touchpad
-      if (Math.abs(normalizedDelta) < 50) { // Likely a touchpad
-        normalizedDelta *= 0.3 // More aggressive dampening
-      }
 
       // Accumulate scroll delta
       scrollAccumulator.current += normalizedDelta
@@ -117,6 +128,7 @@ function MainContent() {
       const currentIndex = navigationSections.findIndex(section => section.id === currentSection)
       let nextSection = currentSection
       
+      // Only move one section at a time
       if (scrollAccumulator.current < 0 && currentIndex > 0) {
         nextSection = navigationSections[currentIndex - 1].id
       } else if (scrollAccumulator.current > 0 && currentIndex < navigationSections.length - 1) {
@@ -129,9 +141,10 @@ function MainContent() {
       
       handleNavigate(nextSection)
       
+      // Longer cooldown after navigation
       setTimeout(() => {
         setIsScrolling(false)
-      }, 500)
+      }, SCROLL_COOLDOWN)
     }
 
     const container = containerRef.current
@@ -172,30 +185,17 @@ function MainContent() {
     return () => observer.disconnect()
   }, [])
 
-  const handleNavigate = (id: string) => {
-    const section = sectionsRef.current[navigationSections.findIndex(section => section.id === id)]
-    if (section) {
-      const isDesktop = window.innerWidth >= 1024
-      if (isDesktop) {
-        section.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
-      } else {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
-      setCurrentSection(id)
-    }
-  }
-
   return (
-    <div className="relative h-screen lg:overflow-hidden md:overflow-visible bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#862B44]/5 via-white to-[#A13553]/5">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-6000"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#862B44] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#A13553] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#862B44] rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-[#A13553] rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-6000"></div>
       </div>
 
-      <div className="flex flex-col min-h-screen lg:overflow-hidden md:overflow-visible">
+      <div className="flex flex-col min-h-screen">
         <Navigation 
           sections={navigationSections}
           currentSection={currentSection}
@@ -206,7 +206,8 @@ function MainContent() {
           ref={containerRef}
           className="relative z-10 flex-1 w-full
                      lg:flex lg:overflow-x-auto lg:overflow-y-hidden lg:snap-x lg:snap-mandatory
-                     md:block md:overflow-visible"
+                     md:block md:overflow-visible hide-scrollbar"
+          style={{ scrollSnapType: 'x mandatory' }}
         >
           {navigationSections.map((section, index) => (
             <section 
@@ -219,15 +220,15 @@ function MainContent() {
                 md:min-h-screen md:w-full
                 ${index === navigationSections.length - 1 ? 'pb-safe' : ''}
               `}
+              style={{ scrollSnapAlign: 'start' }}
             >
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-white/80 pointer-events-none"></div>
               <div className="relative z-10 w-full h-full flex flex-col">
                 <div className="flex-1">
                   {section.id === 'home' && <ProductFeatures />}
-                  {section.id === 'services' && <Services />}
+                  {section.id === 'services' && <Solutions />}
                   {section.id === 'expertise' && <Expertise />}
-                  {section.id === 'solutions' && <Solutions />}
-                  {section.id === 'analytics' && <Analytics />}
+                  {section.id === 'team' && <Analytics />}
                   {section.id === 'contact' && <ContactCard />}
                 </div>
               </div>
@@ -238,6 +239,7 @@ function MainContent() {
       </div>
       
       <CookieConsent show={showCookieConsent} onAccept={() => setShowCookieConsent(false)} />
+      <SpeedInsights />
     </div>
   )
 }
@@ -245,14 +247,12 @@ function MainContent() {
 function App() {
   return (
     <HelmetProvider>
-      <Router>
-        <SEO />
-        <Routes>
-          <Route path="/" element={<MainContent />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Router>
+      <SEO />
+      <Routes>
+        <Route path="/" element={<MainContent />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </HelmetProvider>
   )
 }
