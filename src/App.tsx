@@ -51,6 +51,56 @@ function MainContent() {
     setShowCookieConsent(!consent)
   }, [])
 
+  // Add keyboard navigation handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (window.innerWidth < 1024) return
+      if (isScrolling) return
+
+      const now = Date.now()
+      if (now - lastScrollTime.current < SCROLL_COOLDOWN) return
+
+      const currentIndex = navigationSections.findIndex(section => section.id === currentSection)
+      let nextSection = currentSection
+
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'PageUp':
+          if (currentIndex > 0) {
+            nextSection = navigationSections[currentIndex - 1].id
+          }
+          break
+        case 'ArrowDown':
+        case 'PageDown':
+          if (currentIndex < navigationSections.length - 1) {
+            nextSection = navigationSections[currentIndex + 1].id
+          }
+          break
+        case 'Home':
+          nextSection = navigationSections[0].id
+          break
+        case 'End':
+          nextSection = navigationSections[navigationSections.length - 1].id
+          break
+        default:
+          return
+      }
+
+      if (nextSection !== currentSection) {
+        e.preventDefault()
+        setIsScrolling(true)
+        lastScrollTime.current = now
+        handleNavigate(nextSection)
+        setTimeout(() => {
+          setIsScrolling(false)
+        }, 500)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentSection, isScrolling])
+
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (window.innerWidth < 1024) return
