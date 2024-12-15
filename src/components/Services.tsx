@@ -1,4 +1,4 @@
-import ServiceGrid from '@/components/animata/bento-grid/gradient'
+import ServiceGrid from './animata/bento-grid/gradient'
 import {
   Briefcase,
   Rocket,
@@ -8,7 +8,6 @@ import {
   Target,
   Boxes
 } from 'lucide-react'
-import { BackgroundGradient } from './BackgroundGradient'
 import { motion } from 'framer-motion';
 
 export interface Service {
@@ -104,9 +103,7 @@ export const services: Service[] = [
 
 export function Services() {
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-blue-50/80 via-white/90 to-emerald-50/80 overflow-hidden">
-      <BackgroundGradient />
-      
+    <section className="relative min-h-screen overflow-hidden">
       <motion.div 
         className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
         variants={containerVariants}
@@ -130,10 +127,6 @@ export function Services() {
           className="relative max-w-6xl mx-auto"
           variants={containerVariants}
         >
-          {/* Background decorative elements */}
-          <div className="absolute -top-40 -left-40 w-80 h-80 bg-emerald-200/30 rounded-full blur-3xl opacity-50" />
-          <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-blue-200/30 rounded-full blur-3xl opacity-50" />
-          
           {/* Services grid */}
           <motion.div 
             className="relative"

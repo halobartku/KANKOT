@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { BackgroundGradient } from './BackgroundGradient';
 
 const goldenCircle = [
   {
@@ -43,9 +42,7 @@ const growthAreas = [
 
 export function Solutions() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-50/95 via-emerald-50/80 to-blue-50/90 overflow-hidden">
-      <BackgroundGradient />
-      
+    <div className="relative min-h-screen overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header Section */}
         <motion.div
@@ -71,7 +68,7 @@ export function Solutions() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`bg-gradient-to-br from-white/80 to-emerald-50/80 p-8 rounded-2xl shadow-lg backdrop-blur-sm border border-emerald-100/20 relative overflow-hidden group hover:shadow-xl transition-all duration-300`}
+              className={`p-8 rounded-2xl shadow-lg backdrop-blur-sm border border-emerald-100/20 relative overflow-hidden group hover:shadow-xl transition-all duration-300`}
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${circle.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
               <div className="relative z-10">
@@ -91,7 +88,7 @@ export function Solutions() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-gradient-to-br from-white/80 to-blue-50/80 p-6 rounded-xl shadow-lg backdrop-blur-sm border border-blue-100/20 hover:shadow-xl transition-all duration-300"
+              className="p-6 rounded-xl shadow-lg backdrop-blur-sm border border-blue-100/20 hover:shadow-xl transition-all duration-300"
             >
               <h3 className="text-xl font-semibold text-gray-800 mb-2">{area.title}</h3>
               <p className="text-gray-600">{area.description}</p>

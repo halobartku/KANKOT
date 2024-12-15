@@ -4,10 +4,10 @@ import { ArrowLeft } from 'lucide-react'
 
 export function PrivacyPolicy() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+    <div className="relative min-h-screen">
       <div className="relative min-h-screen md:h-screen overflow-auto">
         {/* Back button */}
-        <div className="sticky top-0 z-50 bg-emerald-50/90 backdrop-blur-sm border-b border-emerald-100">
+        <div className="sticky top-0 z-50 backdrop-blur-sm border-b border-emerald-100">
           <div className="max-w-4xl mx-auto">
             <Link 
               to="/"

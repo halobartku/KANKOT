@@ -95,12 +95,6 @@ export default function ProductFeatures() {
 
   return (
     <section className="relative flex w-full flex-col items-center gap-4 pt-0 pb-16 overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-blue-50" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,_rgba(16,185,129,0.1)_0%,_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,_rgba(59,130,246,0.1)_0%,_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(16,185,129,0.05)_0%,_transparent_50%)]" />
-      
       {/* Content */}
       <div className="relative w-full">
         <motion.div 

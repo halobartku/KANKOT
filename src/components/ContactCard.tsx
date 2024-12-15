@@ -44,7 +44,7 @@ export function ContactCard() {
 
       <div className="grid md:grid-cols-2 gap-8 items-start">
         {/* Contact Information */}
-        <div className="bg-gradient-to-br from-white/80 to-emerald-50/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-emerald-100/20">
+        <div className="backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-emerald-100/20">
           <h3 className="text-2xl font-bold text-gray-800 mb-6">Our Office</h3>
           <div className="space-y-6">
             <div>
@@ -77,7 +77,7 @@ export function ContactCard() {
         </div>
 
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-blue-100/20">
+        <form onSubmit={handleSubmit} className="backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-blue-100/20">
           <div className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
