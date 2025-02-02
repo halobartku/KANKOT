@@ -22,7 +22,9 @@ export function SEO({
     <Helmet>
       {/* Basic metadata */}
       <title>{title}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <meta name="description" content={description} />
+      <meta name="theme-color" content="#000000" />
       <meta name="keywords" content={siteMetadata.keywords.join(', ')} />
       <link rel="canonical" href={canonical} />
       <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
@@ -32,10 +34,12 @@ export function SEO({
       <meta property="og:type" content={siteMetadata.openGraph.type} />
       <meta property="og:site_name" content={siteMetadata.openGraph.siteName} />
       <meta property="og:locale" content={siteMetadata.openGraph.locale} />
-      <meta property="og:url" content={siteMetadata.openGraph.url} />
+      <meta property="og:url" content={canonical} />
       <meta property="og:title" content={siteMetadata.openGraph.title} />
       <meta property="og:description" content={siteMetadata.openGraph.description} />
-      <meta property="og:image" content={`${siteMetadata.siteUrl}${ogImageUrl}`} />
+      <meta property="og:image" content={`${canonical}${ogImageUrl}`} />
+      <meta property="og:image:secure_url" content={`${canonical}${ogImageUrl}`} />
+      <meta property="og:image:type" content="image/webp" />
       <meta property="og:image:width" content={String(siteMetadata.openGraph.images[0].width)} />
       <meta property="og:image:height" content={String(siteMetadata.openGraph.images[0].height)} />
       <meta property="og:image:type" content={siteMetadata.openGraph.images[0].type} />
