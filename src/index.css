@@ -1,8 +1,14 @@
+
 @import './styles/animations.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Performance optimizations */
+img, video, iframe {
+  content-visibility: auto;
+}
 
 /* Modern Business Gradient Backgrounds */
 .bg-primary-gradient {
@@ -30,26 +36,19 @@
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
 }
 
-/* Custom Scrollbar */
+/* Optimized Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(226, 232, 240, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 100vh;
+  background: rgba(241, 245, 249, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(30, 64, 175, 0.3);
-  backdrop-filter: blur(8px);
-  border-radius: 100vh;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(30, 64, 175, 0.5);
+  background: rgba(30, 64, 175, 0.4);
+  border-radius: 4px;
 }
 
 /* Glass Morphism */
@@ -64,40 +63,47 @@
   html, body {
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    position: relative;
   }
 
   main {
     height: auto !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    overflow: hidden !important;
+    width: 100vw;
   }
 
   section {
     min-height: 100vh;
     width: 100% !important;
+    overflow: hidden;
+    contain: strict;
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite ease-in-out;
+    will-change: transform;
+    scale: 0.95;
   }
 }
 
-/* Desktop styles - UNTOUCHED */
+/* Optimized Desktop styles */
 @media (min-width: 1024px) {
   html, body {
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
   }
 
   .section-container {
     width: 100vw;
-    height: 100vh;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    overflow-y: hidden;
     position: relative;
-    padding-bottom: 1.75rem;
+    padding-bottom: 3rem;
+    overflow: visible;
   }
 
   main {
@@ -116,12 +122,13 @@
 
 /* Footer styles */
 footer {
-  position: fixed;
+  position: sticky;
   bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 50;
-  height: 1.75rem;
+  height: 2.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: saturate(180%) blur(8px);
+  contain: layout;
 }
 
 /* Animation classes */

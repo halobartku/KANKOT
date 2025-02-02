@@ -9,7 +9,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#000000">
+    <!-- Preconnect and Preload -->
+    <link rel="preconnect" href="https://kankot.com">
+    <link rel="dns-prefetch" href="https://kankot.com">
+    <link rel="preload" href="/Logo_Kankot.png" as="image" type="image/png">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -25,8 +29,8 @@
     <meta property="og:url" content="https://kankot.com/" />
     <meta property="og:title" content="KANKOT - Transform Your Business Future" />
     <meta property="og:description" content="Global business solutions for digital transformation, strategic growth, and sustainable innovation. Partner with KANKOT to shape your business future." />
-    <meta property="og:image" content="https://kankot.com/Logo_Kankot.png" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image" content="https://kankot.com/images/og-image.webp" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="KANKOT" />
@@ -37,13 +41,15 @@
     <meta name="twitter:url" content="https://kankot.com/" />
     <meta name="twitter:title" content="KANKOT - Transform Your Business Future" />
     <meta name="twitter:description" content="Global business solutions for digital transformation, strategic growth, and sustainable innovation. Partner with KANKOT to shape your business future." />
-    <meta name="twitter:image" content="https://kankot.com/Logo_Kankot.png" />
+    <meta name="twitter:image" content="https://kankot.com/images/og-image.webp" />
 
     <!-- Additional Meta Tags -->
     <meta name="author" content="KANKOT sp. z o. o." />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="format-detection" content="telephone=no" />
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval';">
   </head>
   <body>
     <div id="root"></div>

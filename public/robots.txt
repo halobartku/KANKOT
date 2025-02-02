@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://findprimarywater.com/sitemap.xml
+Sitemap: https://kankot.com/sitemap.xml
